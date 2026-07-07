@@ -126,6 +126,9 @@
 
   .copybtn{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:7px;padding:3px 9px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-left:10px}
   .copybtn:hover{border-color:var(--blue);color:var(--blue)} .copybtn .ti{font-size:14px}
+  .dlbtn{border:1px solid var(--line);background:var(--card);color:var(--blue-dark);border-radius:7px;padding:4px 10px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+  .dlbtn:hover{border-color:var(--blue);background:var(--blue-soft)} .dlbtn .ti{font-size:15px}
+  .dlbtn[disabled]{color:var(--faint);cursor:default;font-weight:500}
 
   .rej-banner{display:flex;gap:11px;align-items:flex-start;padding:13px 16px;border-radius:12px;font-size:14px;margin-bottom:16px;background:var(--rej-bg);border:1px solid #F3C6C6;color:#7F1D1D}
   .rej-banner .ti{font-size:19px;flex:none;margin-top:1px} .rej-banner b{font-weight:700}
@@ -189,7 +192,7 @@
   .secure{font-size:12.5px;color:var(--faint);margin-top:14px} .secure b{color:var(--muted);font-weight:600}
 
   .tblwrap{overflow-x:auto}
-  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px;min-width:460px}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px;min-width:560px}
   th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
   th{font-size:12px;font-weight:600;color:var(--faint)}
   td.amt,th.amt{text-align:right;font-variant-numeric:tabular-nums}
@@ -495,14 +498,17 @@
 
       <div class="panel">
         <h2>결제 내역</h2>
+        <!-- [인보이스] 카드=Stripe 인보이스 PDF URL, 이체=입금 확인 후 생성한 PDF.
+             인보이스 번호는 단일 소스(Firestore 카운터)로 통일: MODAK-INV-YYYY-#### -->
         <div class="tblwrap"><table>
-          <thead><tr><th>날짜</th><th>내용</th><th>수단</th><th class="amt">금액</th><th class="amt">상태</th></tr></thead>
+          <thead><tr><th>날짜</th><th>내용</th><th>수단</th><th class="amt">금액</th><th class="amt">상태</th><th class="amt">인보이스</th></tr></thead>
           <tbody>
-            <tr><td>2026.07.04</td><td>가을 신메뉴 · 프리미엄 스폰서 · 1주</td><td>카드</td><td class="amt">A$29.00</td><td class="amt"><span class="paid">완료</span></td></tr>
-            <tr><td>2026.06.20</td><td>단기 룸메이트 · 일반 랜덤 · 1주</td><td>카드</td><td class="amt">A$9.00</td><td class="amt"><span class="paid">완료</span></td></tr>
+            <tr><td>2026.07.04</td><td>가을 신메뉴 · 프리미엄 스폰서 · 1주</td><td>카드</td><td class="amt">A$29.00</td><td class="amt"><span class="paid">완료</span></td><td class="amt"><button class="dlbtn" onclick="showToast('인보이스 PDF를 내려받았어요 · MODAK-INV-2026-0001')"><i class="ti ti-download"></i>PDF</button></td></tr>
+            <tr><td>2026.06.20</td><td>단기 룸메이트 · 일반 랜덤 · 1주</td><td>카드</td><td class="amt">A$9.00</td><td class="amt"><span class="paid">완료</span></td><td class="amt"><button class="dlbtn" onclick="showToast('인보이스 PDF를 내려받았어요 · MODAK-INV-2026-0002')"><i class="ti ti-download"></i>PDF</button></td></tr>
+            <tr><td>2026.06.28</td><td>주말 창고 세일 · 프리미엄 고정 · 1주</td><td>이체</td><td class="amt">A$59.00</td><td class="amt"><span class="pending">확인 중</span></td><td class="amt"><button class="dlbtn" disabled>확인 후 발급</button></td></tr>
           </tbody>
         </table></div>
-        <div class="secure" style="margin-top:12px">세금계산서(Tax Invoice)는 결제 완료 후 이메일로 발송돼요. <b>admin@playmodak.com</b></div>
+        <div class="secure" style="margin-top:12px">인보이스는 결제 완료(이체는 입금 확인) 시 이메일로 자동 발송되고, 위에서 언제든 다시 내려받을 수 있어요. 세금계산서 형식은 GST 등록 여부에 따라 확정돼요.</div>
       </div>
     </section>
 
